@@ -1,0 +1,230 @@
+#%RAML 1.0
+title: Music Hub API
+version: v1
+baseUri: http://localhost:3000/api
+mediaType: application/json
+
+securitySchemes:
+  basicAuth:
+    type: Basic Authentication
+    description: Basic Authentication for secured endpoints
+
+/users:
+  /signup:
+    post:
+      description: Register a new user.
+      body:
+        application/json:
+          example:
+            username: johndoe
+            password: password123
+      responses:
+        201:
+          body:
+            application/json:
+              example:
+                message: User registered successfully
+
+  /login:
+    post:
+      description: Login user.
+      body:
+        application/json:
+          example:
+            username: johndoe
+            password: password123
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                token: abc123xyz
+
+/artists:
+  get:
+    description: Get all artists.
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              - id: 1
+                name: Ed Sheeran
+              - id: 2
+                name: Taylor Swift
+
+  post:
+    securedBy: [ basicAuth ]
+    description: Add a new artist.
+    body:
+      application/json:
+        example:
+          name: Imagine Dragons
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              message: Artist created successfully
+
+  /{id}:
+    get:
+      description: Get artist by ID.
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                id: 1
+                name: Ed Sheeran
+
+    put:
+      securedBy: [ basicAuth ]
+      description: Update artist.
+      body:
+        application/json:
+          example:
+            name: Ed Sheeran Updated
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: Artist updated successfully
+
+    delete:
+      securedBy: [ basicAuth ]
+      description: Delete artist.
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: Artist deleted successfully
+
+/albums:
+  get:
+    description: Get all albums.
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              - id: 1
+                title: Divide
+              - id: 2
+                title: Midnights
+
+  post:
+    securedBy: [ basicAuth ]
+    description: Add a new album.
+    body:
+      application/json:
+        example:
+          title: Evolve
+          artist: Imagine Dragons
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              message: Album created successfully
+
+  /{id}:
+    get:
+      description: Get album by ID.
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                id: 1
+                title: Divide
+
+    put:
+      securedBy: [ basicAuth ]
+      description: Update album.
+      body:
+        application/json:
+          example:
+            title: Divide Deluxe
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: Album updated successfully
+
+    delete:
+      securedBy: [ basicAuth ]
+      description: Delete album.
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: Album deleted successfully
+
+/songs:
+  get:
+    description: Get all songs.
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              - id: 1
+                title: Perfect
+              - id: 2
+                title: Blank Space
+
+  post:
+    securedBy: [ basicAuth ]
+    description: Add a new song.
+    body:
+      application/json:
+        example:
+          title: Believer
+          artist: Imagine Dragons
+          album: Evolve
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              message: Song created successfully
+
+  /{id}:
+    get:
+      description: Get song by ID.
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                id: 1
+                title: Perfect
+
+    put:
+      securedBy: [ basicAuth ]
+      description: Update song.
+      body:
+        application/json:
+          example:
+            title: Perfect Remix
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: Song updated successfully
+
+    delete:
+      securedBy: [ basicAuth ]
+      description: Delete song.
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: Song deleted successfully
